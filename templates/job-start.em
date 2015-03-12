@@ -32,6 +32,15 @@ function log() {
   logger -s -p user.$1 ${@@:2}
 }
 
+export ROBOT=raw3-1
+export ROBOT_ENV=ipa-office
+
+NFS_DIRECTORY="/u/robot"
+while [  ! -d "$NFS_DIRECTORY" ]; do
+  log info "cob: waiting for nfs"
+  sleep 1
+done
+
 log info "@(name): Using workspace setup file @(workspace_setup)"
 source @(workspace_setup)
 JOB_FOLDER=@(job_path)
