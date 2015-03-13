@@ -32,8 +32,11 @@ function log() {
   logger -s -p user.$1 ${@@:2}
 }
 
-export ROBOT=raw3-1
+robot_num=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f3 | tail -c 2)
+
+export ROBOT=raw3-$robot_num
 export ROBOT_ENV=ipa-office
+export ROSLAUNCH_SSH_UNKNOWN=1
 
 NFS_DIRECTORY="/u/robot"
 while [  ! -d "$NFS_DIRECTORY" ]; do
